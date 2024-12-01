@@ -67,7 +67,6 @@ lazy val core          = project
       name         := s"${(ThisBuild / name).value}-core",
       scalaVersion := scala3Version,
       libraryDependencies ++= Seq(
-        "org.pkl-lang"   % "pkl-config-java-all" % versions.pkl,
         "org.scalameta" %% "munit"               % versions.munit % Test
       )
     )
@@ -76,6 +75,6 @@ lazy val root = project
     .aggregate(core)
     .settings(sharedSettings)
     .settings(
-      name           := "${(ThisBuild / name).value}",
+      name           := (ThisBuild / name).value,
       publish / skip := true
     )
