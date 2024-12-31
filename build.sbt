@@ -2,12 +2,16 @@ import xerial.sbt.Sonatype.GitHubHosting
 import xerial.sbt.Sonatype.sonatypeCentralHost
 
 ThisBuild / tlBaseVersion := "0.0"
-val scala3Version = "3.5.2"
+// Dependencies versions
+val versions = new {
+    val scala = "3.5.2"
+    val munit = "1.0.3"
+}
 
 ThisBuild / name                   := "project-template"
 ThisBuild / homepage               := Some(url(s"https://github.com/FunktionalIO/${(ThisBuild / name).value}"))
 ThisBuild / description            := ""
-ThisBuild / scalaVersion           := scala3Version
+ThisBuild / scalaVersion           := versions.scala
 ThisBuild / organization           := "io.funktional"
 ThisBuild / organizationName       := "Funktional"
 ThisBuild / organizationHomepage   := Some(url("https://funktional.io"))
@@ -39,35 +43,30 @@ ThisBuild / scmInfo                := Some(
 ThisBuild / githubWorkflowOSes         := Seq("ubuntu-latest")
 ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17"))
 
-// Dependencies versions
-val versions = new {
-    val munit = "1.0.2"
-}
-
 val sharedSettings = Seq(
   organization   := "io.funktional",
-  scalaVersion   := "3.3.4",
+  scalaVersion   := versions.scala,
   libraryDependencies ++= Seq(
-    "org.scalameta" %%% "munit" % "1.0.2" % Test
+    "org.scalameta" %%% "munit" % versions.munit % Test
   ),
   // Headers
   headerMappings := headerMappings.value + (HeaderFileType.scala -> HeaderCommentStyle.cppStyleLineComment),
   headerLicense  := Some(HeaderLicense.Custom(
-    """|Copyright (c) 2024-2024 by Raphaël Lemaitre and Contributors
+    """|Copyright (c) 2025-2025 by Raphaël Lemaitre and Contributors
            |This software is licensed under the Eclipse Public License v2.0 (EPL-2.0).
            |For more information see LICENSE or https://opensource.org/license/epl-2-0
            |""".stripMargin
   ))
 )
 
-lazy val core          = project
+lazy val core = project
     .in(file("modules/core"))
     .settings(sharedSettings)
     .settings(
       name         := s"${(ThisBuild / name).value}-core",
-      scalaVersion := scala3Version,
+      scalaVersion := versions.scala,
       libraryDependencies ++= Seq(
-        "org.scalameta" %% "munit"               % versions.munit % Test
+        "org.scalameta" %% "munit" % versions.munit % Test
       )
     )
 lazy val root = project
