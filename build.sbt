@@ -4,8 +4,8 @@ import xerial.sbt.Sonatype.sonatypeCentralHost
 ThisBuild / tlBaseVersion := "0.0"
 // Dependencies versions
 val versions = new {
-    val scala = "3.5.2"
-    val munit = "1.0.3"
+    val scala = "3.6.4"
+    val munit = "1.1.0"
 }
 
 ThisBuild / name                   := "project-template"
@@ -15,7 +15,7 @@ ThisBuild / scalaVersion           := versions.scala
 ThisBuild / organization           := "io.funktional"
 ThisBuild / organizationName       := "Funktional"
 ThisBuild / organizationHomepage   := Some(url("https://funktional.io"))
-ThisBuild / startYear              := Some(2024)
+ThisBuild / startYear              := Some(2025)
 ThisBuild / licenses               := Seq("EPL-2.0" -> url("https://opensource.org/licenses/EPL-2.0"))
 ThisBuild / developers             := List(
   Developer(
@@ -41,7 +41,7 @@ ThisBuild / scmInfo                := Some(
 
 // Github actions
 ThisBuild / githubWorkflowOSes         := Seq("ubuntu-latest")
-ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17"))
+ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec.oracle("21"))
 
 val sharedSettings = Seq(
   organization   := "io.funktional",
